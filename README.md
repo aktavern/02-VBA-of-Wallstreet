@@ -1,7 +1,7 @@
 # 02-VBA-of-Wallstreet
 VBA script which evaluates, formats, and manipulates stock data.
 
-This script achieves the "Moderate" level and the challenges by addressing the following requirements:
+This script achieves the "Hard" level and the challenges by addressing the following requirements:
 
 1. Loop through one year of stock data for each run and return the total volume each stock had over that year.
 
@@ -18,6 +18,8 @@ This script achieves the "Moderate" level and the challenges by addressing the f
 * The total stock volume of the stock.
 
 4. Have conditional formatting that will highlight positive change in green and negative change in red.
+
+5. Return the stock with the "Greatest % increase", "Greatest % Decrease" and "Greatest total volume".
 
 # Assumptions
 When the yearly change requires a divide by 0, it assumes the change is 0. 
