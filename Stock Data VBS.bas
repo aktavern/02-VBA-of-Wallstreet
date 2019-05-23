@@ -15,8 +15,8 @@ Sub stockdata()
     tickerSymbol = ""
     totalVolume = 0
     rowNumber = 1
-    lastRow = Range("A" & Rows.Count).End(xlUp).Row
     cnt = 0
+    lastRow = Range("A" & Rows.Count).End(xlUp).Row
     
     'loop through each row in the spreadsheet
     For Each ws In Worksheets
@@ -69,8 +69,11 @@ Sub stockdata()
         cnt = 0
         totalVolume = 0
     Next ws
+    lastRow = Range("A" & Rows.Count).End(xlUp).Row
     
 End Sub
+
+
 
 
 
