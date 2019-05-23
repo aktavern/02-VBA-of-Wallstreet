@@ -1,4 +1,4 @@
-Attribute VB_Name = "Module11"
+Attribute VB_Name = "Module1"
 Sub stockdata()
     ' define variables to be used in loop
     Dim tickerSymbol As String
@@ -10,13 +10,14 @@ Sub stockdata()
     Dim closeValue As Double
     Dim percentChange As Double
     Dim yearlyChange As Double
+    Dim greatestIncrease As Double
+    Dim greatestSymbol As String
+    Dim greatestDecrease As Double
+    Dim decreaseSymbol As String
+    Dim greatestVolume As Double
+    Dim volumeSymbol As String
     
-    ' set starter values for variables
-    tickerSymbol = ""
-    totalVolume = 0
-    rowNumber = 1
     lastRow = Range("A" & Rows.Count).End(xlUp).Row
-    cnt = 0
     
     'loop through each row in the spreadsheet
     For Each ws In Worksheets
@@ -24,7 +25,23 @@ Sub stockdata()
         ws.Cells(1, 9).Value = "Ticker"
         ws.Cells(1, 10).Value = "Yearly Change"
         ws.Cells(1, 11).Value = "Percent Change"
+        ws.Cells(1, 16).Value = "Ticker"
+        ws.Cells(1, 17).Value = "Value"
         ws.Cells(1, 12).Value = "Total Stock Volume"
+        ws.Cells(2, 15).Value = "Greatest % Increase"
+        ws.Cells(3, 15).Value = "Greatest % Decrease"
+        ws.Cells(4, 15).Value = "Greatest Total Volume"
+        ' set variables at begining of each worksheet
+        greatestIncrease = 0
+        greatestSymbol = ""
+        greatestDecrease = 0
+        decreaseSymbol = ""
+        greatestVolume = 0
+        volumeSymbol = ""
+        tickerSymbol = ""
+        totalVolume = 0
+        rowNumber = 1
+        cnt = 0
         For i = 2 To lastRow
             cnt = cnt + 1
             ' check if the next row is the same as the current row
@@ -48,11 +65,29 @@ Sub stockdata()
                 Else
                     percentChange = ((closeValue / openValue) - 1)
                 End If
-                'update values of summary table
+                ' determine greatest increase or decrease
+                If percentChange > greatestIncrease Then
+                    greatestIncrease = percentChange
+                    greatestSymbol = tickerSymbol
+                ElseIf percentChange < greatestDecrease Then
+                    greatestDecrease = percentChange
+                    decreaseSymbol = tickerSymbol
+                End If
+                If totalVolume > greatestVolume Then
+                    greatestVolume = totalVolume
+                    volumeSymbol = tickerSymbol
+                End If
+                'update values of summary tables
                 ws.Range("I" & rowNumber).Value = tickerSymbol
                 ws.Range("J" & rowNumber).Value = yearlyChange
                 ws.Range("K" & rowNumber).Value = Format(percentChange, "Percent")
                 ws.Range("L" & rowNumber).Value = totalVolume
+                ws.Cells(2, 16).Value = greatestSymbol
+                ws.Cells(2, 17).Value = Format(greatestIncrease, "Percent")
+                ws.Cells(3, 16).Value = decreaseSymbol
+                ws.Cells(3, 17).Value = Format(greatestDecrease, "Percent")
+                ws.Cells(4, 16).Value = volumeSymbol
+                ws.Cells(4, 17).Value = greatestVolume
                 'reset variables
                 totalVolume = 0
                 cnt = 0
@@ -71,9 +106,9 @@ Sub stockdata()
         totalVolume = 0
     Next ws
     'reset lastrow variable for next worksheet
-    lastRow = Range("A" & Rows.Count).End(xlUp).Row
     
 End Sub
+
 
 
 
