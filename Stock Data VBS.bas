@@ -108,17 +108,3 @@ Sub stockdata()
     'reset lastrow variable for next worksheet
     
 End Sub
-
-
-
-
-
-
-
-
-
-
-
-
-
-
