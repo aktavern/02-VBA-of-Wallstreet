@@ -17,8 +17,6 @@ Sub stockdata()
     Dim greatestVolume As Double
     Dim volumeSymbol As String
     
-    lastRow = Range("A" & Rows.Count).End(xlUp).Row
-    
     'loop through each row in the spreadsheet
     For Each ws In Worksheets
      ' set titles for columns in each worksheet
@@ -42,6 +40,7 @@ Sub stockdata()
         totalVolume = 0
         rowNumber = 1
         cnt = 0
+        lastRow = ws.Cells(Rows.Count, 1).End(xlUp).Row
         For i = 2 To lastRow
             cnt = cnt + 1
             ' check if the next row is the same as the current row
@@ -105,6 +104,23 @@ Sub stockdata()
         cnt = 0
         totalVolume = 0
     Next ws
-    'reset lastrow variable for next worksheet
     
 End Sub
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
